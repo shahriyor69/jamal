@@ -1,0 +1,34 @@
+-- Get all players in the game.
+local players = game.Players:GetPlayers()
+
+-- Create a new selection box.
+local selectionBox = Instance.new("SelectionBox")
+
+-- Set the selection box's properties.
+selectionBox.Color3 = Color3.fromRGB(0, 170, 255)
+selectionBox.LineThickness = 0.02
+
+-- Create a new text label.
+local playerNameLabel = Instance.new("TextLabel")
+
+-- Set the text label's properties.
+playerNameLabel.Text = "Player Name"
+playerNameLabel.FontSize = 16
+playerNameLabel.TextColor = Color3.black
+playerNameLabel.BackgroundTransparency = 1
+
+-- Position the text label below the selection box.
+playerNameLabel.Position = selectionBox.Position - Vector3.new(0, 0.5, 0)
+
+-- Add the text label to the selection box.
+selectionBox.Adornments:Add(playerNameLabel)
+
+-- Iterate over all players and add the selection box to their torso.
+for _, player in pairs(players) do
+    local torso = player.Character.HumanoidRootPart
+    selectionBox.Adornee = torso
+    selectionBox.Parent = torso
+
+    -- Set the text label's text to the player's name.
+    playerNameLabel.Text = player.Name
+end
